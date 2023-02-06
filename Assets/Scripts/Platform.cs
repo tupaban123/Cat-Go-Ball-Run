@@ -12,6 +12,7 @@ public class Platform : Prop
 
     [Header("Settings")] 
     [SerializeField] private float bridgeOffset;
+    [HideInInspector] public bool isGivingMoney;
     
     private Bridge _bridge;
     private Camera _cam;
@@ -27,15 +28,18 @@ public class Platform : Prop
         get { return largeBridge; }
         private set {}
     }
-    
+
     private void Start()
     {
         _cam = Camera.main;
+        largeBridge.transform.localPosition = new Vector3(largeBridge.transform.localPosition.x, largeBridge.transform.localPosition.y, 0);
+        shortBridge.transform.localPosition = new Vector3(shortBridge.transform.localPosition.x, shortBridge.transform.localPosition.y, 0);
     }
 
-    public override void Init(Vector2 pos)
+    public override void Init(Vector3 pos)
     {
         base.Init(pos);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
     public void SetBridge(Bridge bridge)

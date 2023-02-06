@@ -2,7 +2,7 @@
 
 public class ShortBridge : Bridge
 {
-    public override void Init(Vector2 pos)
+    public override void Init(Vector3 pos)
     {
         base.Init(pos);
         //Transform.localPosition = pos;

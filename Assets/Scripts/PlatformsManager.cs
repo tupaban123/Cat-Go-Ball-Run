@@ -1,7 +1,8 @@
-using System;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Cysharp.Threading.Tasks;
 
 public class PlatformsManager : MonoBehaviour
 {
@@ -9,48 +10,44 @@ public class PlatformsManager : MonoBehaviour
     [SerializeField] private Platform platform;
 
     [Header("Components")]
-    [SerializeField] private Transform platformsParent;
+    [SerializeField] private BigPlatform platformsParent;
     
     [Header("Settings")] 
     [SerializeField] private int platformsCount;
     [SerializeField] private float platformsDistance;
-    [SerializeField] private Vector2 startPlatformPos;
+    [SerializeField] private Transform platformSpawnPoint;
     [SerializeField] private float stepSize;
 
     private List<Platform> _platforms = new List<Platform>();
+
+    private CancellationTokenSource _endMoveCancellationToken;
     
     private void Start()
     {
+        _endMoveCancellationToken = new CancellationTokenSource();
         GenerateMap();
     }
 
-    private void Update()
+    public void StartGame()
     {
-        List<Platform> platformsToPlaceToTop = new List<Platform>();
-        foreach (var currentPlatform in _platforms)
-        {
-            currentPlatform.transform.position -= new Vector3(0, stepSize / 10, 0);
-            if (currentPlatform.IsUnderScreen())
-                platformsToPlaceToTop.Add(currentPlatform);
-        }
-
-        PlaceToTop(platformsToPlaceToTop);
+        MoveAtStart();
     }
 
     private void GenerateMap()
     {
         for (int i = 0; i < platformsCount; i++)
         {
-            var xPos = startPlatformPos.x;
-            var yPos = startPlatformPos.y + (platformsDistance * i);
+            var xPos = platformSpawnPoint.position.x;
+            var yPos = platformSpawnPoint.position.y + (platformsDistance * i);
 
-            var platformPos = new Vector2(xPos, yPos);
+            var platformPos = new Vector3(xPos, yPos, 0);
 
-            var newPlatform = Instantiate(platform, platformsParent);
+            var newPlatform = Instantiate(platform, platformsParent.transform);
             newPlatform.Init(platformPos);
             
             _platforms.Add(newPlatform);
-            
+            newPlatform.isGivingMoney = i != 0;
+
             GenerateBridge(newPlatform);
         }
     }
@@ -99,4 +96,34 @@ public class PlatformsManager : MonoBehaviour
             _platforms.Add(platform);
         }
     }
+
+    private async UniTask MoveAtStart()
+    {
+        while (!platformsParent.IsUnderScreen())
+        {
+            platformsParent.transform.position -= new Vector3(0, stepSize / 10, 0);
+            await UniTask.NextFrame(cancellationToken: _endMoveCancellationToken.Token);
+        }
+
+        MovePlatforms();
+    }
+
+    private async UniTask MovePlatforms()
+    {
+        while(true)
+        {
+            List<Platform> platformsToPlaceToTop = new List<Platform>();
+            foreach (var currentPlatform in _platforms)
+            {
+                currentPlatform.transform.position -= new Vector3(0, stepSize / 10, 0);
+                if (currentPlatform.IsUnderScreen())
+                    platformsToPlaceToTop.Add(currentPlatform);
+            }
+
+            PlaceToTop(platformsToPlaceToTop);
+            await UniTask.NextFrame(cancellationToken: _endMoveCancellationToken.Token);
+        }
+    }
+
+    public void StopMove() => _endMoveCancellationToken.Cancel();
 }

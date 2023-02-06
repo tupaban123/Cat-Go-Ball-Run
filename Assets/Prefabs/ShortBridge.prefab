@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8946451953288711547}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BridgeTop
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -42,7 +42,8 @@ GameObject:
   - component: {fileID: 8419714322176029003}
   - component: {fileID: 6748134137915746109}
   - component: {fileID: 8746438619346762139}
-  m_Layer: 0
+  - component: {fileID: -8650102095703003299}
+  m_Layer: 7
   m_Name: ShortBridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 6210757923452119868}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.38014546, y: 1.0457458, z: 0}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8946451953288711547}
@@ -133,6 +134,19 @@ MonoBehaviour:
   bridgeType: 0
   topBridge: {fileID: 8946451953288711547}
   bottomBridge: {fileID: 4454714691627361788}
+--- !u!65 &-8650102095703003299
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6210757923452119868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.97018945, y: 5.23, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9192288656318136518
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4454714691627361788}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BridgeBottom
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
