@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
+using Zenject;
 
 public class Cat : MonoBehaviour
 {
@@ -26,16 +27,20 @@ public class Cat : MonoBehaviour
     private PlatformsManager _platformsManager;
     private Animator _animator;
     private ScoreManager _scoreManager;
+    private LoseManager _loseManager;
+    
+    [Inject] private Pouch _pouch;
 
-    private void Awake()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _platformsManager = FindObjectOfType<PlatformsManager>();
         _animator = GetComponent<Animator>();
         _scoreManager = FindObjectOfType<ScoreManager>();
+        _loseManager = FindObjectOfType<LoseManager>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!_isPlaying)
             return;
@@ -93,7 +98,7 @@ public class Cat : MonoBehaviour
         
         await UniTask.Delay(TimeSpan.FromSeconds(loseClipLength));
         
-        Pouch.Instance.AddLose();
+        _loseManager.AddLose();
         losePanel.Init(_scoreManager.currentScore);
         OnLose?.Invoke();
     }

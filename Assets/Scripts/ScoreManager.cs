@@ -1,11 +1,15 @@
+using System;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
 
     public int currentScore { get; private set; }
+
+    [Inject] private Pouch pouch;
 
     public void AddScore()
     {
@@ -26,7 +30,6 @@ public class ScoreManager : MonoBehaviour
     {
         var scoreString = currentScore.ToString();
         char[] scoreNumbers = scoreString.ToCharArray();
-        var pouch = Pouch.Instance;
 
         string scoreToText = "";
         

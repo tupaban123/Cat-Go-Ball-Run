@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class LosePanel : MonoBehaviour
 {
@@ -16,10 +17,10 @@ public class LosePanel : MonoBehaviour
     [SerializeField] [Tooltip("Указывать медальки в порядке спадания, то есть от большего к меньшему")] 
     private List<MedalsPair> medalsPairs = new List<MedalsPair>();
 
+    [Inject] private Pouch pouch;
+
     public void Init(int score)
     {
-        var pouch = Pouch.Instance;
-
         if(score > pouch.BestScore)
         {
             newImage.SetActive(true);

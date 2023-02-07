@@ -7,15 +7,11 @@ using GoogleMobileAds.Api;
 public class InterstitialAdvertisment : MonoBehaviour
 {
     [SerializeField] private string adIdAndroid;
-    [SerializeField] private string adIdIOS;
     
     private InterstitialAd interstitial;
 
     private void Start()
     {
-        // Initialize the Google Mobile Ads SDK.
-        MobileAds.Initialize(initStatus => { });
-        
         RequestInterstitial();
     }
 
@@ -25,8 +21,10 @@ public class InterstitialAdvertisment : MonoBehaviour
             interstitial.Show();
     }
 
-    private void RequestInterstitial()
+    public void RequestInterstitial()
     {
+        MobileAds.Initialize(initStatus => { });
+        
 #if UNITY_ANDROID
         string adUnitId = adIdAndroid;
 #else

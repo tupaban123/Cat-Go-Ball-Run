@@ -45,6 +45,38 @@ public class Platform : Prop
     public void SetBridge(Bridge bridge)
     {
         _bridge = bridge;
+
+        if (bridge.BridgeType == BridgeType.Large)
+        {
+            bridge.InitZEulerAngle(Random.Range(-35, 35));
+            
+            var topBridgePointPos = bridge.Top.position;
+            var bottomBridgePointPos = bridge.Bottom.position;
+
+            var leftBoundPos = leftBound.position;
+            var rightBoundPos = rightBound.position;
+
+            var bridgeLocalPos = bridge.transform.localPosition;
+
+            if (bottomBridgePointPos.x < leftBoundPos.x || topBridgePointPos.x < leftBoundPos.x)
+            {
+                var distance = Mathf.Abs(leftBoundPos.x - bottomBridgePointPos.x);
+
+                bridge.transform.localPosition =
+                    new Vector3(bridgeLocalPos.x + distance, bridgeLocalPos.y, bridgeLocalPos.z);
+                
+                Debug.Log($"Large bridge fix < left. {gameObject.name}\nDistance {distance}");
+            }
+            else if (bottomBridgePointPos.x > rightBoundPos.x || topBridgePointPos.x > rightBoundPos.x)
+            {
+                var distance = Mathf.Abs(rightBoundPos.x - bottomBridgePointPos.x);
+                
+                bridge.transform.localPosition =
+                    new Vector3(bridgeLocalPos.x - distance, bridgeLocalPos.y, bridgeLocalPos.z);
+                
+                Debug.Log($"Large bridge fix > right. {gameObject.name}\nDistance {distance}");
+            }
+        }
     }
 
     public Vector2 GetPosForBridge()

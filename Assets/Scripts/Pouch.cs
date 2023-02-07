@@ -8,22 +8,12 @@ public class Pouch : MonoBehaviour
 
     private Dictionary<char, int> indexes = new Dictionary<char, int>();
 
-    public static Pouch Instance;
-
     private InterstitialAdvertisment _ad;
 
     public int BestScore { get; private set; }
-    public int LosesCount { get; private set; } = 0;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-        
-        DontDestroyOnLoad(gameObject);
-
         if (PlayerPrefs.HasKey("BestScore"))
             BestScore = PlayerPrefs.GetInt("BestScore");
         else
@@ -38,8 +28,6 @@ public class Pouch : MonoBehaviour
         }
 
         _ad = FindObjectOfType<InterstitialAdvertisment>();
-
-        Debug.Log(_ad != null);
     }
 
     public void SetBestScore(int value)
@@ -48,20 +36,6 @@ public class Pouch : MonoBehaviour
         PlayerPrefs.SetInt("BestScore", BestScore);
     }
 
-    public void AddLose()
-    {
-        LosesCount++;
-        Debug.Log(LosesCount);
-        
-        if (LosesCount >= 2)
-        {
-            LosesCount = 0;
-            
-            if(_ad != null)
-                _ad.EnableAd();
-        }
-    }
-    
     public string GetSpriteText(char number)
     {
         return $"<sprite index={indexes[number]}>";

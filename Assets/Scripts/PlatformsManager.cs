@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class PlatformsManager : MonoBehaviour
     [SerializeField] private float platformsDistance;
     [SerializeField] private Transform platformSpawnPoint;
     [SerializeField] private float stepSize;
+    [SerializeField] private float chackPlatformsUnderScreenCooldown;
 
     private List<Platform> _platforms = new List<Platform>();
 
@@ -31,6 +33,7 @@ public class PlatformsManager : MonoBehaviour
     public void StartGame()
     {
         MoveAtStart();
+        PlacePlatformsToTop();
     }
 
     private void GenerateMap()
@@ -47,7 +50,8 @@ public class PlatformsManager : MonoBehaviour
             
             _platforms.Add(newPlatform);
             newPlatform.isGivingMoney = i != 0;
-
+            newPlatform.gameObject.name = $"Platform {i}";
+            
             GenerateBridge(newPlatform);
         }
     }
@@ -64,15 +68,7 @@ public class PlatformsManager : MonoBehaviour
         }
             
         var bridgePos = currentPlatform.GetPosForBridge();
-            
-        if(bridgeToSpawn.BridgeType == BridgeType.Large)
-        {
-            var incorrectBridgePos = bridgePos;
-            bridgePos = new Vector2(0, incorrectBridgePos.y);
-                
-            bridgeToSpawn.InitZEulerAngle(Random.Range(-35, 35));
-        }
-            
+
         bridgeToSpawn.Init(bridgePos);
         currentPlatform.SetBridge(bridgeToSpawn);
         bridgeToSpawn.gameObject.SetActive(true);
@@ -112,15 +108,28 @@ public class PlatformsManager : MonoBehaviour
     {
         while(true)
         {
-            List<Platform> platformsToPlaceToTop = new List<Platform>();
             foreach (var currentPlatform in _platforms)
             {
                 currentPlatform.transform.position -= new Vector3(0, stepSize / 10, 0);
-                if (currentPlatform.IsUnderScreen())
-                    platformsToPlaceToTop.Add(currentPlatform);
             }
+            await UniTask.NextFrame(cancellationToken: _endMoveCancellationToken.Token);
+        }
+    }
 
-            PlaceToTop(platformsToPlaceToTop);
+    private async UniTask PlacePlatformsToTop()
+    {
+        while (true)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(chackPlatformsUnderScreenCooldown));
+
+            var platformsToTop = new List<Platform>();
+            foreach (var platform in _platforms)
+            {
+                if(platform.IsUnderScreen())
+                    platformsToTop.Add(platform);
+            }
+            PlaceToTop(platformsToTop);
+
             await UniTask.NextFrame(cancellationToken: _endMoveCancellationToken.Token);
         }
     }
