@@ -5,8 +5,8 @@ public class LoseManager : MonoBehaviour
 {
     public int LosesCount { get; private set; } = 0;
 
-    [SerializeField] private InterstitialAdvertisment _ad;
     [SerializeField] private int loseCount;
+    [SerializeField] private RewardedInterstitialAdvertisment _ad;
 
     private void Start()
     {

@@ -8,8 +8,8 @@ using Zenject;
 public class LosePanel : MonoBehaviour
 {
     [Header("Components")] 
-    [SerializeField] private TMP_Text currentScore;
-    [SerializeField] private TMP_Text bestScore;
+    [SerializeField] private TMP_Text currentScoreText;
+    [SerializeField] private TMP_Text bestScoreText;
     [SerializeField] private GameObject newImage;
     [SerializeField] private Image medalImage;
 
@@ -21,6 +21,8 @@ public class LosePanel : MonoBehaviour
 
     public void Init(int score)
     {
+        CalculateMedal(score);
+        
         if(score > pouch.BestScore)
         {
             newImage.SetActive(true);
@@ -45,28 +47,36 @@ public class LosePanel : MonoBehaviour
             bestScoreText += pouch.GetSpriteText(scoreChar);
         }
 
-        currentScore.text = scoreText;
-        this.bestScore.text = bestScoreText;
-
-        CalculateMedal(score);
+        currentScoreText.text = scoreText;
+        this.bestScoreText.text = bestScoreText;
     }
 
     private void CalculateMedal(int score)
     {
-        foreach (var medalPair in medalsPairs)
-        {
-            if (score >= medalPair.Score)
-            {
-                medalImage.sprite = medalPair.Medal;
-                
-                if(medalPair.Medal != null)
-                    medalImage.color = new Color(255, 255, 255, 1);
-                else
-                    medalImage.color = new Color(255, 255, 255, 0);
+        medalImage.color = new Color(255, 255, 255, 1);
+        
+        var bestScore = pouch.BestScore;
+        var medal = GetMedal(bestScore);
 
-                return;
-            }
+        if (score > bestScore)
+            medal = GetMedal(score);
+
+        if (medal == null)
+        {
+            medalImage.color = new Color(255, 255, 255, 0);
+            return;
         }
+        
+        medalImage.sprite = medal;
+    }
+
+    private Sprite GetMedal(int score)
+    {
+        foreach (var medalPair in medalsPairs)
+            if (score >= medalPair.Score)
+                return medalPair.Medal;
+
+        return null;
     }
 }
 

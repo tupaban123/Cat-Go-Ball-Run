@@ -48,7 +48,7 @@ public class Platform : Prop
 
         if (bridge.BridgeType == BridgeType.Large)
         {
-            bridge.InitZEulerAngle(Random.Range(-35, 35));
+            bridge.InitZEulerAngle(Random.Range(-25, 25));
             
             var topBridgePointPos = bridge.Top.position;
             var bottomBridgePointPos = bridge.Bottom.position;
@@ -63,7 +63,7 @@ public class Platform : Prop
                 var distance = Mathf.Abs(leftBoundPos.x - bottomBridgePointPos.x);
 
                 bridge.transform.localPosition =
-                    new Vector3(bridgeLocalPos.x + distance, bridgeLocalPos.y, bridgeLocalPos.z);
+                    new Vector3(bridgeLocalPos.x + (distance + distance / 4.5f), bridgeLocalPos.y, bridgeLocalPos.z);
                 
                 Debug.Log($"Large bridge fix < left. {gameObject.name}\nDistance {distance}");
             }
@@ -72,7 +72,7 @@ public class Platform : Prop
                 var distance = Mathf.Abs(rightBoundPos.x - bottomBridgePointPos.x);
                 
                 bridge.transform.localPosition =
-                    new Vector3(bridgeLocalPos.x - distance, bridgeLocalPos.y, bridgeLocalPos.z);
+                    new Vector3(bridgeLocalPos.x - (distance+ distance / 5), bridgeLocalPos.y, bridgeLocalPos.z);
                 
                 Debug.Log($"Large bridge fix > right. {gameObject.name}\nDistance {distance}");
             }
@@ -81,10 +81,10 @@ public class Platform : Prop
 
     public Vector2 GetPosForBridge()
     {
-        var yPos = leftBound.position.y + bridgeOffset;
-        var xPos = Random.Range(leftBound.position.x, rightBound.position.x);
+        var yPos = leftBound.localPosition.y + bridgeOffset;
+        var xPos = Random.Range(leftBound.localPosition.x, rightBound.localPosition.x);
 
-        return new Vector2(xPos, yPos);
+        return new Vector3(xPos, yPos, 0);
     }
 
     public void RemoveBridge()

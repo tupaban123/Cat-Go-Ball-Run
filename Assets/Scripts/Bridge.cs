@@ -31,4 +31,9 @@ public class Bridge : Prop
 
         transform.localEulerAngles = new Vector3(eulerAngles.x, eulerAngles.y, angle);
     }
+
+    public override void Init(Vector3 pos)
+    {
+        transform.localPosition = pos;
+    }
 }

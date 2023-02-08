@@ -8,8 +8,6 @@ public class Pouch : MonoBehaviour
 
     private Dictionary<char, int> indexes = new Dictionary<char, int>();
 
-    private InterstitialAdvertisment _ad;
-
     public int BestScore { get; private set; }
 
     private void Awake()
@@ -26,8 +24,6 @@ public class Pouch : MonoBehaviour
         {
             indexes[item.Number] = item.SpriteIndex;
         }
-
-        _ad = FindObjectOfType<InterstitialAdvertisment>();
     }
 
     public void SetBestScore(int value)

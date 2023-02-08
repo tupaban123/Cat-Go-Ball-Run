@@ -81,7 +81,7 @@ public class PlatformsManager : MonoBehaviour
             var lastPlatformYPos = _platforms[_platforms.Count - 1].transform.position.y;
 
             var currentPlatformPos = platform.transform.position;
-            var newPos = new Vector2(currentPlatformPos.x, lastPlatformYPos + platformsDistance);
+            var newPos = new Vector3(currentPlatformPos.x, lastPlatformYPos + platformsDistance, currentPlatformPos.z);
 
             platform.transform.position = newPos;
          
@@ -90,6 +90,7 @@ public class PlatformsManager : MonoBehaviour
             
             _platforms.Remove(platform);
             _platforms.Add(platform);
+            platform.isGivingMoney = true;
         }
     }
 

@@ -3,7 +3,7 @@ guid: cb137d73f48481948ad372c4876a40e0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -63,6 +63,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -102,6 +103,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -204,9 +217,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 992
-        y: 2320
+        y: 2456
         width: 475
-        height: 306
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1090,7 +1103,7 @@ TextureImporter:
         width: 43
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1098,6 +1111,27 @@ TextureImporter:
       bones: []
       spriteID: 74378c98a6440ac4b97581b35bd39db0
       internalID: -851554853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tiles_47
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 2319
+        width: 374
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 874757ac94180244caeedccc98d1559e
+      internalID: 1503308916
       vertices: []
       indices: 
       edges: []
@@ -1113,7 +1147,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tiles_45: 1478788019
+      tiles_47: 1503308916
+      tiles_30: -1942496991
       tiles_44: 801104299
       tiles_33: 156942364
       tiles_28: 712989749
@@ -1136,8 +1171,8 @@ TextureImporter:
       tiles_24: -845264104
       tiles_13: 1183396368
       tiles_2: -1302880933
-      tiles_17: -1347292641
       tiles_29: -175063578
+      tiles_17: -1347292641
       tiles_7: -561606844
       tiles_9: 1171298969
       tiles_38: -484137723
@@ -1158,8 +1193,8 @@ TextureImporter:
       tiles_10: 2096157875
       tiles_23: 939857763
       tiles_12: -1412342445
-      tiles_30: -1942496991
       tiles_25: 899705707
+      tiles_45: 1478788019
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

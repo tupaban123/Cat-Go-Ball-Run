@@ -904,11 +904,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platform: {fileID: 1918586391699782069, guid: 3ba0038f73727f042a3820300a39cfb4, type: 3}
   platformsParent: {fileID: 495525297}
-  platformsCount: 15
+  platformsCount: 50
   platformsDistance: 4.5
   platformSpawnPoint: {fileID: 1863775578}
   stepSize: 0.4
-  chackPlatformsUnderScreenCooldown: 5
+  chackPlatformsUnderScreenCooldown: 1
 --- !u!4 &472802148
 Transform:
   m_ObjectHideFlags: 0
@@ -1650,8 +1650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15488bb2927e45d483425b3df4b23cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ad: {fileID: 2068379711}
   loseCount: 7
+  _ad: {fileID: 2047344096}
 --- !u!4 &947516691
 Transform:
   m_ObjectHideFlags: 0
@@ -2107,8 +2107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eea35cbf35b4b2c8ab525cc82fc195f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScore: {fileID: 2003261709}
-  bestScore: {fileID: 1420679}
+  currentScoreText: {fileID: 2003261709}
+  bestScoreText: {fileID: 1420679}
   newImage: {fileID: 2029241066}
   medalImage: {fileID: 990459387}
   medalsPairs:
@@ -2306,7 +2306,7 @@ MonoBehaviour:
   rollingAudioSource: {fileID: 215211902}
   loseAudioSource: {fileID: 333997753}
   rayLength: 10
-  accelerationMultiplier: 10
+  accelerationMultiplier: 60
   OnLose:
     m_PersistentCalls:
       m_Calls:
@@ -2523,7 +2523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -90.83002}
+  m_AnchoredPosition: {x: 0, y: -174}
   m_SizeDelta: {x: 1080, y: 181.66003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1421213325
@@ -4298,6 +4298,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2029241066}
   m_CullTransparentMesh: 1
+--- !u!1 &2047344095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2047344097}
+  - component: {fileID: 2047344096}
+  m_Layer: 0
+  m_Name: RIAd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2047344096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047344095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b91c112d30420fb4a62cf8125ff7aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  adUnitIdAndroid: ca-app-pub-3940256099942544/5354046379
+--- !u!4 &2047344097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047344095}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.0356355, y: 230.0892, z: 1.5510261}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2068379709
 GameObject:
   m_ObjectHideFlags: 0
@@ -4307,10 +4352,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2068379710}
-  - component: {fileID: 2068379711}
   - component: {fileID: 2068379712}
   m_Layer: 0
-  m_Name: Interstitial
+  m_Name: AdsInit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4331,19 +4375,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2068379711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068379709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7961e374711e72349bfe266cd0f344a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adIdAndroid: ca-app-pub-3940256099942544/1033173712
 --- !u!114 &2068379712
 MonoBehaviour:
   m_ObjectHideFlags: 0
